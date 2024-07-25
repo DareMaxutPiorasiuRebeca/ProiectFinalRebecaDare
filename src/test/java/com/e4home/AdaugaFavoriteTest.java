@@ -66,6 +66,14 @@ public class AdaugaFavoriteTest {
         String expectedRaspunsCautareFavorite = "Piscină gonflabilă Bestway Mickey, 122 x 25 cm";
         String actualRaspunsCautareFavorite = raspunsCautareFavorite.getText();
         Assert.assertTrue(actualRaspunsCautareFavorite.contains(expectedRaspunsCautareFavorite));
+        //stergem produs din favorite
+       WebElement scoateDinFavorite = driver.findElement(By.xpath("//section[@id='content']//a[@title='Scoate din favorite']/span[.='Scoate din favorite']"));
+       scoateDinFavorite.click();
+       //verificam din nou cosul
+        
+
+
+
     }
     @AfterTest(alwaysRun = true)
     public void tearDown(){
