@@ -52,8 +52,8 @@ public class AdaugaFavoriteTest {
         cautare.sendKeys("piscina");
         WebElement butonCautare = driver.findElement(By.xpath("//form[@id='search-box']//input[@title='Căutare']"));
         butonCautare.click();
-        //selectez piscina de 244 cm
-        WebElement selectare = driver.findElement(By.xpath("//div[@id='results']//a[@title='Piscină gonflabilă Bestway cu tobogan Sunnyland, 237 x 201 x 104 cm']//div[@class='product-thumbnail-photo-wrap']"));
+        //selectez piscina
+        WebElement selectare = driver.findElement(By.xpath("//div[@id='results']//a[@title='Piscină gonflabilă Bestway Mickey, 122 x 25 cm']//div[@class='product-thumbnail-photo-wrap']"));
         selectare.click();
         //ajung pe pagina produs si adaug la favorite
         WebElement favoriteButon = driver.findElement(By.xpath("//section[@id='content']//a[@title='La favorite']/span[.='La favorite']"));
@@ -62,8 +62,8 @@ public class AdaugaFavoriteTest {
         WebElement favoriteSectiune = driver.findElement(By.xpath("/html//a[@id='ajax-favorites']"));
         favoriteSectiune.click();
         // verificam ca produsul selectat a ajuns in favorite
-        WebElement raspunsCautareFavorite = driver.findElement(By.xpath("/html//section[@id='content']/div[2]/table[@class='cart-product-list']//h2/a[@href='/piscina-gonflabila-bestway-cu-tobogan-sunnyland-237-x-201-x-104-cm/']"));
-        String expectedRaspunsCautareFavorite = "Piscină gonflabilă Bestway cu tobogan Sunnyland, 237 x 201 x 104 cm";
+        WebElement raspunsCautareFavorite = driver.findElement(By.xpath("/html//section[@id='content']/div[2]/table[@class='cart-product-list']//h2/a[@href='/piscina-gonflabila-bestway-mickey-122-x-25-cm/']"));
+        String expectedRaspunsCautareFavorite = "Piscină gonflabilă Bestway Mickey, 122 x 25 cm";
         String actualRaspunsCautareFavorite = raspunsCautareFavorite.getText();
         Assert.assertTrue(actualRaspunsCautareFavorite.contains(expectedRaspunsCautareFavorite));
     }
