@@ -1,5 +1,6 @@
+package com.e4home;
+
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -12,7 +13,7 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-public class LoginFaraParolaTest {
+public class CautareDupaNumeNegativTest {
     WebDriver driver;
     @Parameters({"browserParam"})
     @BeforeTest(alwaysRun = true)
@@ -27,29 +28,22 @@ public class LoginFaraParolaTest {
         driver.manage().window().maximize();}
 
     @Test
-    public void loginTest(){
+    public void cautareDupaNume(){
         //eliminam cookies
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("/html//span[@id='agreeWithCookies']")));
         WebElement allowCookies = driver.findElement(By.xpath("/html//span[@id='agreeWithCookies']"));
         allowCookies.click();
-        WebElement autentificare = driver.findElement(By.xpath("/html/body[@class='RO']/div[@class='container']//div[@class='info-block']/div[1]/a[@href='/autentificare/']"));
-        autentificare.click();
-        //nu introducem nimic la username
-        WebElement usernameInput = driver.findElement(By.xpath("/html//input[@id='UserName']"));
-        usernameInput.sendKeys(Keys.BACK_SPACE);
-        usernameInput.sendKeys("TomSmithTest2024@gmail.com");
-        //enter incorect password
-        WebElement passwordInput = driver.findElement(By.xpath("/html//input[@id='Password']"));
-        passwordInput.sendKeys("");
-        //click Login
-        WebElement authButton = driver.findElement(By.xpath("/html//div[@id='login-box']/form[@action='/autentificare/']//input[@name='btnLoginSubmit']"));
-        authButton.click();
-        //check error message
-        WebElement errorMessage2 = driver.findElement(By.xpath("/html//span[@id='Password-error']"));
-        String expectedErrorMessage2 = "Câmpul nu poate rămâne necompletat";
-        String actualErrorMessage2 = errorMessage2.getText();
-        Assert.assertTrue(actualErrorMessage2.contains(expectedErrorMessage2));
+        //cautare
+        WebElement cautare = driver.findElement(By.xpath("/html//input[@id='search-header-input']"));
+        cautare.sendKeys("ggbantes");
+        WebElement butonCautare = driver.findElement(By.xpath("//form[@id='search-box']//input[@title='Căutare']"));
+        butonCautare.click();
+        //check message
+        WebElement raspunsCautareNume = driver.findElement(By.xpath("/html//section[@id='content']//p[@class='result-info']"));
+        String expectedRaspunsCautareNume = "Din păcate nu a fost găsit nici un rezultat pentru întrebarea căutată.";
+        String actualRaspunsCautareNume = raspunsCautareNume.getText();
+        Assert.assertTrue(actualRaspunsCautareNume.contains(expectedRaspunsCautareNume));
     }
     @AfterTest(alwaysRun = true)
     public void tearDown(){

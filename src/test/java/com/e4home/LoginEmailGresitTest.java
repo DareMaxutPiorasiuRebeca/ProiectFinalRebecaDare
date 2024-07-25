@@ -1,3 +1,5 @@
+package com.e4home;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +14,7 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-public class LoginFaraEmailTest {
+public class LoginEmailGresitTest {
     WebDriver driver;
     @Parameters({"browserParam"})
     @BeforeTest(alwaysRun = true)
@@ -35,21 +37,21 @@ public class LoginFaraEmailTest {
         allowCookies.click();
         WebElement autentificare = driver.findElement(By.xpath("/html/body[@class='RO']/div[@class='container']//div[@class='info-block']/div[1]/a[@href='/autentificare/']"));
         autentificare.click();
-        //nu introducem nimic la username
+        //enter username sau email gresit
         WebElement usernameInput = driver.findElement(By.xpath("/html//input[@id='UserName']"));
         usernameInput.sendKeys(Keys.BACK_SPACE);
-        usernameInput.sendKeys("");
-        //enter incorect password
+        usernameInput.sendKeys("TomSmith@gmail.com");
+        //enter  password
         WebElement passwordInput = driver.findElement(By.xpath("/html//input[@id='Password']"));
         passwordInput.sendKeys("ParolaSuperSecreta.");
         //click Login
         WebElement authButton = driver.findElement(By.xpath("/html//div[@id='login-box']/form[@action='/autentificare/']//input[@name='btnLoginSubmit']"));
         authButton.click();
         //check error message
-        WebElement errorMessage1 = driver.findElement(By.xpath("/html//span[@id='UserName-error']"));
-        String expectedErrorMessage1 = "Câmpul nu poate rămâne necompletat";
-        String actualErrorMessage1 = errorMessage1.getText();
-        Assert.assertTrue(actualErrorMessage1.contains(expectedErrorMessage1));
+        WebElement errorMessage = driver.findElement(By.xpath("/html//div[@id='formMessagePanel']"));
+        String expectedErrorMessage = "Utilizator inexistent sau parolă incorectă";
+        String actualErrorMessage = errorMessage.getText();
+        Assert.assertTrue(actualErrorMessage.contains(expectedErrorMessage));
     }
     @AfterTest(alwaysRun = true)
     public void tearDown(){
@@ -63,4 +65,3 @@ public class LoginFaraEmailTest {
         }
     }
 }
-

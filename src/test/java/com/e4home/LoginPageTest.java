@@ -1,3 +1,5 @@
+package com.e4home;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -5,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -13,7 +14,7 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-public class AdaugaFavoriteTest {
+public class LoginPageTest  {
     WebDriver driver;
     @Parameters({"browserParam"})
     @BeforeTest(alwaysRun = true)
@@ -28,7 +29,7 @@ public class AdaugaFavoriteTest {
         driver.manage().window().maximize();}
 
     @Test
-    public void adaudaFavorite () {
+    public void loginTest(){
         //eliminam cookies
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("/html//span[@id='agreeWithCookies']")));
@@ -46,25 +47,11 @@ public class AdaugaFavoriteTest {
         //click Login
         WebElement authButton = driver.findElement(By.xpath("/html//div[@id='login-box']/form[@action='/autentificare/']//input[@name='btnLoginSubmit']"));
         authButton.click();
-        //cauta piscina
-        WebElement cautare = driver.findElement(By.xpath("/html//input[@id='search-header-input']"));
-        cautare.sendKeys("piscina");
-        WebElement butonCautare = driver.findElement(By.xpath("//form[@id='search-box']//input[@title='Căutare']"));
-        butonCautare.click();
-        //selectez piscina de 244 cm
-        WebElement selectare = driver.findElement(By.xpath("//div[@id='results']//a[@title='Piscină gonflabilă Bestway cu tobogan Sunnyland, 237 x 201 x 104 cm']//div[@class='product-thumbnail-photo-wrap']"));
-        selectare.click();
-        //ajung pe pagina produs si adaug la favorite
-        WebElement favoriteButon = driver.findElement(By.xpath("//section[@id='content']//a[@title='La favorite']/span[.='La favorite']"));
-        favoriteButon.click();
-        // mergem in favorite
-        WebElement favoriteSectiune = driver.findElement(By.xpath("/html//a[@id='ajax-favorites']"));
-        favoriteSectiune.click();
-        // verificam ca produsul selectat a ajuns in favorite
-        WebElement raspunsCautareFavorite = driver.findElement(By.xpath("/html//section[@id='content']/div[2]/table[@class='cart-product-list']//h2/a[@href='/piscina-gonflabila-bestway-cu-tobogan-sunnyland-237-x-201-x-104-cm/']"));
-        String expectedRaspunsCautareFavorite = "Piscină gonflabilă Bestway cu tobogan Sunnyland, 237 x 201 x 104 cm";
-        String actualRaspunsCautareFavorite = raspunsCautareFavorite.getText();
-        Assert.assertTrue(actualRaspunsCautareFavorite.contains(expectedRaspunsCautareFavorite));
+        //check message
+        WebElement succesMsg = driver.findElement(By.xpath("/html//section[@id='content']//h3[.='Profilul meu']"));
+        String expectedSuccessMessage = "Profilul meu";
+        String actualSuccessMesage = succesMsg.getText();
+        Assert.assertTrue(actualSuccessMesage.contains(expectedSuccessMessage));
     }
     @AfterTest(alwaysRun = true)
     public void tearDown(){
