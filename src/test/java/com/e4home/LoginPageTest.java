@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,6 +26,7 @@ public class LoginPageTest  {
         switch (browser){
             case "chrome":driver=new ChromeDriver();break;
             case "edge":driver=new EdgeDriver();break;
+            case "firefox":driver=new FirefoxDriver();break;
             default:driver=new ChromeDriver();break;
         }
         driver.get(url);
@@ -37,22 +41,21 @@ public class LoginPageTest  {
         allowCookies.click();
         WebElement autentificare = driver.findElement(By.xpath("/html/body[@class='RO']/div[@class='container']//div[@class='info-block']/div[1]/a[@href='/autentificare/']"));
         autentificare.click();
-        //enter username sau email
+        //introducem username sau email corect
         WebElement usernameInput = driver.findElement(By.xpath("/html//input[@id='UserName']"));
         usernameInput.sendKeys(Keys.BACK_SPACE);
         usernameInput.sendKeys("TomSmithTest2024@gmail.com");
-        //enter password
+        //introducem password corect
         WebElement passwordInput = driver.findElement(By.xpath("/html//input[@id='Password']"));
         passwordInput.sendKeys("ParolaSuperSecreta.");
         //click Login
         WebElement authButton = driver.findElement(By.xpath("/html//div[@id='login-box']/form[@action='/autentificare/']//input[@name='btnLoginSubmit']"));
         authButton.click();
-        //check message
+        //verifica mesaj eroare
         WebElement succesMsg = driver.findElement(By.xpath("/html//section[@id='content']//h3[.='Profilul meu']"));
         String expectedSuccessMessage = "Profilul meu";
         String actualSuccessMesage = succesMsg.getText();
-        Assert.assertTrue(actualSuccessMesage.contains(expectedSuccessMessage));
-    }
+        Assert.assertTrue(actualSuccessMesage.contains(expectedSuccessMessage));}
     @AfterTest(alwaysRun = true)
     public void tearDown(){
         driver.close();
@@ -62,6 +65,5 @@ public class LoginPageTest  {
             driver.wait(milliseconds);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
-    }
+        }}
 }

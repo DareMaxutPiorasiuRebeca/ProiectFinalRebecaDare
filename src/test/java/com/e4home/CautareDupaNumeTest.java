@@ -5,6 +5,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,6 +25,7 @@ public class CautareDupaNumeTest {
         switch (browser){
             case "chrome":driver=new ChromeDriver();break;
             case "edge":driver=new EdgeDriver();break;
+            case "firefox":driver=new FirefoxDriver();break;
             default:driver=new ChromeDriver();break;
         }
         driver.get(url);
@@ -34,17 +38,16 @@ public class CautareDupaNumeTest {
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("/html//span[@id='agreeWithCookies']")));
         WebElement allowCookies = driver.findElement(By.xpath("/html//span[@id='agreeWithCookies']"));
         allowCookies.click();
-        //cautare
+        //cautare produs dupa nume existent
         WebElement cautare = driver.findElement(By.xpath("/html//input[@id='search-header-input']"));
         cautare.sendKeys("pavilion");
         WebElement butonCautare = driver.findElement(By.xpath("//form[@id='search-box']//input[@title='Căutare']"));
         butonCautare.click();
-        //check message
+        //verifica mesaj
         WebElement raspunsCautareNume = driver.findElement(By.xpath("/html//section[@id='content']//h1[@class='list__title']"));
         String expectedRaspunsCautareNume = "Rezultate căutare pentru: pavilion (8)";
         String actualRaspunsCautareNume = raspunsCautareNume.getText();
-        Assert.assertTrue(actualRaspunsCautareNume.contains(expectedRaspunsCautareNume));
-    }
+        Assert.assertTrue(actualRaspunsCautareNume.contains(expectedRaspunsCautareNume)); }
     @AfterTest(alwaysRun = true)
     public void tearDown(){
         driver.close();
@@ -54,6 +57,5 @@ public class CautareDupaNumeTest {
             driver.wait(milliseconds);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
-    }
+        }}
 }

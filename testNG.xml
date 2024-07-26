@@ -1,0 +1,87 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<suite thread-count="1" verbose="1" name="Exam Tests">
+    <parameter name="browserParam" value="chrome"/>
+
+    <test name="LoginPageTest">
+        <classes>
+            <class name="com.e4home.LoginPageTest">
+               <methods>
+                    <include name="loginTest"/>
+               </methods>
+            </class>
+            <class name="com.e4home.LoginPageTest"/>
+        </classes>
+    </test>
+
+    <test name="LoginParolaGresitaTest">
+        <classes>
+            <class name="com.e4home.LoginParolaGresitaTest">
+                <methods>
+                    <include name="loginParolaGresita"/>
+                </methods>
+            </class>
+            <class name="com.e4home.LoginParolaGresitaTest"/>
+        </classes>
+    </test>
+    <test name="LoginFaraParolaTest">
+        <classes>
+            <class name="com.e4home.LoginFaraParolaTest">
+                <methods>
+                    <include name="loginFaraParola"/>
+                </methods>
+            </class>
+            <class name="com.e4home.LoginFaraParolaTest"/>
+        </classes>
+    </test>
+    <test name="LoginFaraEmailTest">
+        <classes>
+            <class name="com.e4home.LoginFaraEmailTest">
+                <methods>
+                    <include name="loginFaraEmail"/>
+                </methods>
+            </class>
+            <class name="com.e4home.LoginFaraEmailTest"/>
+        </classes>
+    </test>
+    <test name="LoginEmailGresitTest">
+        <classes>
+            <class name="com.e4home.LoginEmailGresitTest">
+                <methods>
+                    <include name="loginEmailGresit"/>
+                </methods>
+            </class>
+            <class name="com.e4home.LoginEmailGresitTest"/>
+        </classes>
+    </test>
+    <test name="CautareDupaNumeTest">
+        <classes>
+            <class name="com.e4home.CautareDupaNumeTest">
+                <methods>
+                    <include name="cautareDupaNume"/>
+                </methods>
+            </class>
+            <class name="com.e4home.CautareDupaNumeTest"/>
+        </classes>
+    </test>
+    <test name="CautareDupaNumeNegativTest">
+        <classes>
+            <class name="com.e4home.CautareDupaNumeNegativTest">
+                <methods>
+                    <include name="cautareDupaNumeNegativ"/>
+                </methods>
+            </class>
+            <class name="com.e4home.CautareDupaNumeNegativTest"/>
+        </classes>
+    </test>
+    <test name="AdaugaScoateFavoriteTest">
+        <classes>
+            <class name="com.e4home.AdaugaScoateFavoriteTest">
+                <methods>
+                    <include name="adaugaScoateFavoriteTest"/>
+                </methods>
+            </class>
+            <class name="com.e4home.AdaugaScoateFavoriteTest"/>
+        </classes>
+    </test>
+</suite>

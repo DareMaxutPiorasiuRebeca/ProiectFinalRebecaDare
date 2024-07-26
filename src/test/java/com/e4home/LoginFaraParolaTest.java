@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,13 +26,14 @@ public class LoginFaraParolaTest {
         switch (browser){
             case "chrome":driver=new ChromeDriver();break;
             case "edge":driver=new EdgeDriver();break;
+            case "firefox":driver=new FirefoxDriver();break;
             default:driver=new ChromeDriver();break;
         }
         driver.get(url);
         driver.manage().window().maximize();}
 
     @Test
-    public void loginTest(){
+    public void loginFaraParola (){
         //eliminam cookies
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("/html//span[@id='agreeWithCookies']")));
@@ -37,22 +41,21 @@ public class LoginFaraParolaTest {
         allowCookies.click();
         WebElement autentificare = driver.findElement(By.xpath("/html/body[@class='RO']/div[@class='container']//div[@class='info-block']/div[1]/a[@href='/autentificare/']"));
         autentificare.click();
-        //nu introducem nimic la username
+        // introducem email corect
         WebElement usernameInput = driver.findElement(By.xpath("/html//input[@id='UserName']"));
         usernameInput.sendKeys(Keys.BACK_SPACE);
         usernameInput.sendKeys("TomSmithTest2024@gmail.com");
-        //enter incorect password
+        //nu introducem nimic la parola
         WebElement passwordInput = driver.findElement(By.xpath("/html//input[@id='Password']"));
         passwordInput.sendKeys("");
         //click Login
         WebElement authButton = driver.findElement(By.xpath("/html//div[@id='login-box']/form[@action='/autentificare/']//input[@name='btnLoginSubmit']"));
         authButton.click();
-        //check error message
+        //verifica mesaj de eroare
         WebElement errorMessage2 = driver.findElement(By.xpath("/html//span[@id='Password-error']"));
         String expectedErrorMessage2 = "Câmpul nu poate rămâne necompletat";
         String actualErrorMessage2 = errorMessage2.getText();
-        Assert.assertTrue(actualErrorMessage2.contains(expectedErrorMessage2));
-    }
+        Assert.assertTrue(actualErrorMessage2.contains(expectedErrorMessage2));}
     @AfterTest(alwaysRun = true)
     public void tearDown(){
         driver.close();
@@ -62,6 +65,5 @@ public class LoginFaraParolaTest {
             driver.wait(milliseconds);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
-    }
+        }}
 }

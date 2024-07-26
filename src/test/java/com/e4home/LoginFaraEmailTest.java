@@ -6,6 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -23,13 +26,14 @@ public class LoginFaraEmailTest {
         switch (browser){
             case "chrome":driver=new ChromeDriver();break;
             case "edge":driver=new EdgeDriver();break;
+            case "firefox":driver=new FirefoxDriver();break;
             default:driver=new ChromeDriver();break;
         }
         driver.get(url);
         driver.manage().window().maximize();}
 
     @Test
-    public void loginTest(){
+    public void loginFaraEmail (){
         //eliminam cookies
         Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("/html//span[@id='agreeWithCookies']")));
@@ -41,18 +45,17 @@ public class LoginFaraEmailTest {
         WebElement usernameInput = driver.findElement(By.xpath("/html//input[@id='UserName']"));
         usernameInput.sendKeys(Keys.BACK_SPACE);
         usernameInput.sendKeys("");
-        //enter incorect password
+        //introducem parola corecta
         WebElement passwordInput = driver.findElement(By.xpath("/html//input[@id='Password']"));
         passwordInput.sendKeys("ParolaSuperSecreta.");
         //click Login
         WebElement authButton = driver.findElement(By.xpath("/html//div[@id='login-box']/form[@action='/autentificare/']//input[@name='btnLoginSubmit']"));
         authButton.click();
-        //check error message
+        //verifica mesaj eroare
         WebElement errorMessage1 = driver.findElement(By.xpath("/html//span[@id='UserName-error']"));
         String expectedErrorMessage1 = "Câmpul nu poate rămâne necompletat";
         String actualErrorMessage1 = errorMessage1.getText();
-        Assert.assertTrue(actualErrorMessage1.contains(expectedErrorMessage1));
-    }
+        Assert.assertTrue(actualErrorMessage1.contains(expectedErrorMessage1));}
     @AfterTest(alwaysRun = true)
     public void tearDown(){
         driver.close();
@@ -62,7 +65,6 @@ public class LoginFaraEmailTest {
             driver.wait(milliseconds);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
-    }
+        }}
 }
 
